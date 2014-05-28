@@ -53,7 +53,7 @@ grails.project.dependency.resolution = {
 
         runtime "grails.crm:crm-security-shiro:1.2.6"
         runtime "grails.crm:crm-i18n:1.2.2"
-        compile "grails.crm:crm-contact-lite:1.2.5-SNAPSHOT"
-        runtime "grails.crm:crm-ui-bootstrap:1.2.12-SNAPSHOT"
+        compile "grails.crm:crm-contact-lite:1.2.5"
+        runtime "grails.crm:crm-ui-bootstrap:1.2.12"
     }
 }
