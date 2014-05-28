@@ -31,6 +31,9 @@ grails.project.dependency.resolution = {
 
         mavenLocal()
         mavenCentral()
+
+        mavenRepo "http://labs.technipelago.se/repo/crm-releases-local/"
+        mavenRepo "http://labs.technipelago.se/repo/plugins-releases-local/"
     }
 
     dependencies {
@@ -43,9 +46,14 @@ grails.project.dependency.resolution = {
 
         runtime ":hibernate:$grailsVersion"
         runtime ":resources:1.2.7"
-        runtime ":jquery:1.11.1"
+        runtime ":jquery:1.10.2"
         runtime ":twitter-bootstrap:2.3.2"
-        runtime ":less-resources:1.3.3.1"
+        runtime ":less-resources:1.3.3.2"
         runtime ":database-migration:1.3.6"
+
+        runtime "grails.crm:crm-security-shiro:1.2.6"
+        runtime "grails.crm:crm-i18n:1.2.2"
+        compile "grails.crm:crm-contact-lite:1.2.5-SNAPSHOT"
+        runtime "grails.crm:crm-ui-bootstrap:1.2.12-SNAPSHOT"
     }
 }

@@ -59,6 +59,25 @@ grails.exceptionresolver.params.exclude = ['password']
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
 grails.hibernate.cache.queries = false
 
+crm.theme.logo.small = "/images/gr8conf-logo.png"
+crm.theme.logo.medium = "/images/gr8conf-logo.png"
+crm.theme.logo.large = "/images/gr8conf-logo.png"
+
+crm.feature.crmContact.required = true
+
+selection.uri.parameter = "q"
+selection.uri.encoding = "base64"
+
+crm.tag.favorite = "favorite"
+crm.favorite.icon = "icon-star"
+
+recentDomain.autoscan.actions = ['crmContact:show']
+
+grails.plugin.databasemigration.changelogLocation = "grails-app/migrations"
+grails.plugin.databasemigration.changelogFileName = "changelog.groovy"
+grails.plugin.databasemigration.updateOnStart = false
+grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
+
 environments {
     development {
         grails.logging.jul.usebridge = true
