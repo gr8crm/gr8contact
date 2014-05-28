@@ -64,6 +64,7 @@ crm.theme.logo.medium = "/images/gr8conf-logo.png"
 crm.theme.logo.large = "/images/gr8conf-logo.png"
 
 crm.feature.crmContact.required = true
+crm.feature.crmContent.required = true
 
 selection.uri.parameter = "q"
 selection.uri.encoding = "base64"
@@ -77,6 +78,9 @@ grails.plugin.databasemigration.changelogLocation = "grails-app/migrations"
 grails.plugin.databasemigration.changelogFileName = "changelog.groovy"
 grails.plugin.databasemigration.updateOnStart = false
 grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
+
+crm.content.editor.css = [dir: 'less', file: 'application.less.css']
+crm.content.file.path = "./target/content-repository"
 
 environments {
     development {

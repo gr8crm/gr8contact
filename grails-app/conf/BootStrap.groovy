@@ -1,10 +1,28 @@
 class BootStrap {
 
+    def crmCoreService
     def crmAccountService
     def crmSecurityService
     def crmContactService
+    def crmContentService
+    def crmPluginService
 
     def init = { servletContext ->
+
+        // crmContact:show << documents
+        crmPluginService.registerView('crmContact', 'show', 'tabs',
+                [id: "documents",
+                        index: 500,
+                        permission: "crmContact:show",
+                        label: "crmContact.tab.documents.label",
+                        template: '/crmContent/embedded',
+                        plugin: "crm-content-ui",
+                        model: {
+                            def result = crmContentService.findResourcesByReference(crmContact)
+                            return [bean: crmContact, list: result, totalCount: result.size(),
+                                    reference: crmCoreService.getReferenceIdentifier(crmContact), openAction: 'show']
+                        }]
+        )
 
         def admin = crmSecurityService.createUser([username: "admin", password: "admin",
                 email: "firstname.lastname@email.com", name: "Admin", enabled: true])
