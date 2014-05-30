@@ -6,8 +6,13 @@ class BootStrap {
     def crmContactService
     def crmContentService
     def crmPluginService
+    def navigationService
+    def crmTaskService
 
     def init = { servletContext ->
+
+        navigationService.registerItem('main', [controller: 'crmCalendar', action: 'index', title: 'crmCalendar.index.label', order: 81])
+        navigationService.updated()
 
         // crmContact:show << documents
         crmPluginService.registerView('crmContact', 'show', 'tabs',
@@ -22,6 +27,14 @@ class BootStrap {
                             return [bean: crmContact, list: result, totalCount: result.size(),
                                     reference: crmCoreService.getReferenceIdentifier(crmContact), openAction: 'show']
                         }]
+        )
+
+        crmPluginService.registerView('crmContact', 'show', 'tabs',
+                [id: "tasks", index: 300, permission: "crmTask:show", label: "crmTask.index.label", template: '/crmTask/list', plugin: "crm-task-ui", model: {
+                    def rid = crmCoreService.getReferenceIdentifier(crmContact)
+                    def result = crmTaskService.list([ref: rid], [sort: 'startTime', order: 'asc'])
+                    return [bean: crmContact, reference: rid, result: result, totalCount: result.totalCount]
+                }]
         )
 
         def admin = crmSecurityService.createUser([username: "admin", password: "admin",
@@ -44,6 +57,18 @@ class BootStrap {
                         website: 'www.technipelago.se', address: [city: 'Djurhamn', country: "SE"], true)
                 crmContactService.createPerson(firstName: "Göran", lastName: "Ehrsson",
                         email: "goran@technipelago.se", parent: technipelago, title: "Developer", true)
+
+                def conf = crmTaskService.createTaskType(name: "Conference", param: "conference").save(failOnError: true, flush: true)
+                crmTaskService.createTask(name: "GR8Conf EU - University", type: conf, username: 'admin',
+                        startTime: Date.parse('yyyy-MM-dd HH:mm', '2014-06-02 09:00'), duration: 60 * 9, true)
+                crmTaskService.createTask(name: "Hackergarten on Tour", type: conf, username: 'admin',
+                        startTime: Date.parse('yyyy-MM-dd HH:mm', '2014-06-02 18:00'), duration: 60 * 5, true)
+                crmTaskService.createTask(name: "GR8Conf EU - Day 1", type: conf, username: 'admin',
+                        startTime: Date.parse('yyyy-MM-dd HH:mm', '2014-06-03 09:00'), duration: 60 * 9 + 30, true)
+                crmTaskService.createTask(name: "Meet & Greet", type: conf, username: 'admin',
+                        startTime: Date.parse('yyyy-MM-dd HH:mm', '2014-06-03 18:30'), duration: 60 * 3, true)
+                crmTaskService.createTask(name: "GR8Conf EU - Day 2", type: conf, username: 'admin',
+                        startTime: Date.parse('yyyy-MM-dd HH:mm', '2014-06-04 09:00'), duration: 60 * 8, true)
             }
         }
     }
