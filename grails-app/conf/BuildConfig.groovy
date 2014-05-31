@@ -12,7 +12,7 @@ grails.project.source.level = 1.6
 //   run: [maxMemory:1024, minMemory:64, debug:false, maxPerm:256]
 //]
 // Increase heap and permgen in run-war mode
-grails.tomcat.jvmArgs = ["-Djava.awt.headless=true", "-Xms512m", "-Xmx768m", "-XX:MaxPermSize=320m"]
+grails.tomcat.jvmArgs = ["-Djava.awt.headless=true", "-Xms512m", "-Xmx512m", "-XX:MaxPermSize=320m"]
 grails.tomcat.nio = true
 
 grails.project.dependency.resolution = {
@@ -57,5 +57,6 @@ grails.project.dependency.resolution = {
         runtime "grails.crm:crm-ui-bootstrap:1.2.12"
         compile "grails.crm:crm-content-ui:1.2.13"
         runtime "grails.crm:crm-task-ui:1.2.7"
+        runtime ":cookie-layout:latest.integration"
     }
 }
