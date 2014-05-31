@@ -1,0 +1,299 @@
+@import "variables-us.less";
+@import "mixins.less";
+
+html {
+  height: 100%;
+  background-color: @bodyBackground;
+}
+body {
+  #gradient > .vertical(#fff, @bodyBackground);
+}
+#brand {
+  padding: 10px;
+}
+#head-wrapper {
+  background-color: @white;
+}
+#content-wrapper {
+  padding: 19px;
+  background-color: @white;
+  .border-radius(@borderRadiusLarge);
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0.2;
+    }
+    60% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.pulse {
+    -webkit-animation-name: pulse;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+.center {
+    text-align:center;
+}
+.nowrap {
+  white-space: nowrap;
+}
+
+th.money,
+td.money {
+    text-align:right !important;
+}
+a.toggle {
+  text-decoration: none;
+}
+tr.current td,
+tr.current td a:not(.btn) {
+  font-weight: bold;
+}
+.disabled td,
+.disabled td a:not(.btn) {
+  text-decoration: line-through;
+  color: @grayLight;
+}
+
+#login-button,
+#logout-button {
+  margin-top: 2px;
+  opacity: 0.5;
+  padding-bottom: 5px;
+  margin-left: 10px;
+}
+
+.navbar-inner {
+  .border-radius(0);
+}
+.navbar .nav > li > a {
+  line-height: 19px;
+  font-size: 15px;
+}
+.navbar-search {
+  .search-query {
+    color: @grayLighter;
+    background-color: darken(@navbarBackground, 5%);
+    border: 1px solid lighten(@navbarBackground, 5%);
+    &:-moz-placeholder {
+      color: @navbarLinkColor;
+    }
+    &::-webkit-input-placeholder {
+      color: @navbarLinkColor;
+    }
+    &::-ms-input-placeholder {
+      color: @navbarLinkColor;
+    }
+    &:focus,
+    &.focused {
+      color: @navbarLinkColor;
+      background-color: lighten(@navbarBackground, 5%);
+      border: 1px solid lighten(@navbarBackground, 10%);
+    }
+  }
+}
+ul.dropdown-menu .current>a {
+  font-weight: bold;
+}
+#global-message .alert {
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+.page-header {
+  padding-bottom: 10px;
+  margin: 10px 0 18px 0;
+  border-bottom: 1px solid @grayLighter;
+}
+footer {
+    //border-top: 1px solid @grayLighter;
+    padding: 20px;
+    color: @white;
+}
+#copyright {
+  text-align: center;
+  font-size: 11px;
+}
+
+li.select2-no-results {
+  display: none;
+}
+
+.recent-list {
+  float: right;
+  margin-top: 3px;
+}
+.recent-list span {
+  margin-right: 9px;
+  a {
+    color: @grayLight;
+  }
+}
+.recent-list span.label {
+  display: inline-block;
+  a {
+    color: @white;
+  }
+}
+.recent-list i {
+    opacity:0.3;
+}
+.timestamp {
+    font-size: 11px;
+    color: #d3d3d3;
+    text-shadow: 0 1px 0 rgba(240, 240, 240, 0.4);
+    text-align: right;
+}
+.acInput {
+	width: 200px;
+}
+.acResults {
+	padding: 0px;
+	border: 1px solid @grayLight;
+	background-color: white;
+	overflow: hidden;
+}
+
+.acResults ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-position: outside;
+	list-style: none;
+}
+
+.acResults ul li {
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: pointer;
+	display: block;
+	overflow: hidden;
+}
+
+.acLoading {
+	background : url('../images/spinner.gif') right center no-repeat;
+}
+
+.acSelect {
+	background-color: @navbarBackground;
+	color: black;
+}
+
+.tab-content {
+    overflow: visible !important; /* See https://github.com/twitter/bootstrap/issues/3519 */
+}
+
+.accordion-heading {
+  background-color: #fcfcfc;
+}
+
+.crm-treeview ul,
+.crm-treeview li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.crm-treeview li:last-child {
+    margin-bottom: 10px;
+}
+.crm-treeview input {
+    position: absolute;
+    opacity: 0;
+}
+
+.crm-treeview {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.crm-treeview a {
+    color: #4f96f6;
+    text-decoration: none;
+}
+
+.crm-treeview a:hover {
+    text-decoration: underline;
+}
+
+.crm-treeview input + label + ul {
+    margin: 0 0 0 22px;
+}
+
+.crm-treeview input ~ ul {
+    display: none;
+}
+
+.crm-treeview label,
+.crm-treeview label::before {
+    cursor: pointer;
+}
+
+.crm-treeview input:disabled + label {
+    cursor: default;
+    opacity: .6;
+}
+
+.crm-treeview input:checked:not(:disabled) ~ ul {
+    display: block;
+}
+
+.crm-treeview label,
+.crm-treeview label::before {
+    background: url('../images/treeview.png') no-repeat;
+}
+
+.crm-treeview label,
+.crm-treeview a,
+.crm-treeview label::before {
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+}
+
+.crm-treeview label {
+    background-position: 18px 0;
+}
+
+.crm-treeview label::before {
+    content: "";
+    width: 16px;
+    margin: 0 22px 0 0;
+    vertical-align: middle;
+    background-position: 0 -32px;
+}
+
+.crm-treeview input:checked + label::before {
+    background-position: 0 -16px;
+}
+
+/* webkit adjacent element selector bugfix */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .crm-treeview {
+        -webkit-animation: webkit-adjacent-element-selector-bugfix infinite 1s;
+    }
+
+    @-webkit-keyframes webkit-adjacent-element-selector-bugfix {
+        from {
+            padding: 0;
+        }
+        to {
+            padding: 0;
+        }
+    }
+}
