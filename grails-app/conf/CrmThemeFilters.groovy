@@ -12,8 +12,6 @@
 
 import grails.plugins.crm.core.CrmTheme
 
-import javax.servlet.http.Cookie
-
 class CrmThemeFilters {
 
     def crmThemeService
@@ -22,53 +20,13 @@ class CrmThemeFilters {
     def filters = {
         setTheme(controller: '*', action: '*') {
             before = {
-                def cookieName = grailsApplication.config.grails.layout.cookie.name
-                if (params.theme) {
-                    def themeName = params.theme
+                def themeName = grailsApplication.config.grails.layout.domain[request.getServerName()]
+                if (themeName) {
                     def tenant = crmThemeService.getTenantForTheme(themeName) ?: 1L
                     def theme = new CrmTheme(themeName, tenant)
-                    if (themeName == 'eu') {
-                        request.removeAttribute('crmTheme')
-                        request.removeAttribute(cookieName)
-                    } else {
-                        request.setAttribute('crmTheme', theme)
-                        request.setAttribute(cookieName, themeName)
-                    }
-                    if (cookieName) {
-                        def themeConfig = grailsApplication.config.crm.theme
-                        def cookie = new Cookie(cookieName, themeName)
-                        def domain = themeConfig."$themeName".cookie.domain
-                        def path = themeConfig."$themeName".cookie.path
-                        if (!domain) {
-                            domain = themeConfig.cookie.domain ?: 'localhost'
-                        }
-                        if (!path) {
-                            path = themeConfig.cookie.path ?: "/"
-                        }
-                        cookie.setDomain(domain)
-                        cookie.setPath(path)
-                        if (themeName != 'eu') {
-                            cookie.setMaxAge(themeConfig.cookie.age ?: (60 * 60 * 24 * 365)) // Store cookie for 1 year
-                        } else {
-                            cookie.setMaxAge(0) // This removes the cookie.
-                        }
-                        response.addCookie(cookie)
-                    }
-                } else {
-                    def host = request.getServerName()
-                    def themeName = grailsApplication.config.grails.layout.domain[host]
-                    if (!themeName && cookieName) {
-                        def cookie = request.getCookies().find { it.name == cookieName }
-                        if (cookie) {
-                            themeName = cookie.getValue()
-                        }
-                    }
-                    if(themeName) {
-                        def tenant = crmThemeService.getTenantForTheme(themeName) ?: 1L
-                        def theme = new CrmTheme(themeName, tenant)
-                        request.setAttribute('crmTheme', theme)
-                        request.setAttribute(cookieName, themeName)
-                    }
+                    def cookieName = grailsApplication.config.grails.layout.cookie.name
+                    request.setAttribute('crmTheme', theme)
+                    request.setAttribute(cookieName, themeName)
                 }
             }
         }
