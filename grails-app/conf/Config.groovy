@@ -88,8 +88,8 @@ crm.task.job.alarm.enabled = true
 grails.layout.cookie.name = "gr8Theme"
 grails.layout.cookie.append = '+'
 grails.layout.cookie.request = true
-grails.layout.domain.'gr8conf.us' = "us"
-crm.theme.us.cookie.domain = "gr8conf.us"
+grails.layout.domain.'gr8contact.us' = "us"
+crm.theme.us.cookie.domain = "gr8contact.us"
 crm.theme.us.cookie.path = "/gr8contact"
 
 environments {
