@@ -90,6 +90,8 @@ grails.layout.domain.'gr8conf.us' = "us"
 crm.theme.us.cookie.domain = "gr8conf.us"
 crm.theme.us.cookie.path = "/gr8contact"
 
+crm.task.job.alarm.enabled = true
+
 environments {
     development {
         grails.logging.jul.usebridge = true
