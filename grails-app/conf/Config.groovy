@@ -83,14 +83,14 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 crm.content.editor.css = [dir: 'less', file: 'application.less.css']
 crm.content.file.path = "./target/content-repository"
 
+crm.task.job.alarm.enabled = true
+
 grails.layout.cookie.name = "gr8Theme"
 grails.layout.cookie.append = '+'
 grails.layout.cookie.request = true
 grails.layout.domain.'gr8conf.us' = "us"
 crm.theme.us.cookie.domain = "gr8conf.us"
 crm.theme.us.cookie.path = "/gr8contact"
-
-crm.task.job.alarm.enabled = true
 
 environments {
     development {
