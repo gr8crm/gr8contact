@@ -56,6 +56,6 @@ grails.project.dependency.resolution = {
         compile "grails.crm:crm-contact-lite:1.2.5"
         runtime "grails.crm:crm-ui-bootstrap:1.2.12"
         compile "grails.crm:crm-content-ui:1.2.13"
-        runtime "grails.crm:crm-task-ui:1.2.7"
+        runtime "grails.crm:crm-task-ui:1.2.9"
     }
 }
