@@ -57,5 +57,6 @@ grails.project.dependency.resolution = {
         runtime "grails.crm:crm-ui-bootstrap:1.2.12"
         compile "grails.crm:crm-content-ui:1.2.13"
         runtime "grails.crm:crm-task-ui:1.2.9"
+        runtime ":cookie-layout:0.6"
     }
 }
