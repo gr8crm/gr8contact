@@ -51,9 +51,9 @@ grails.project.dependency.resolution = {
         runtime ":less-resources:1.3.3.2"
         runtime ":database-migration:1.3.6"
 
+        compile "grails.crm:crm-contact-lite:1.2.5"
         runtime "grails.crm:crm-security-shiro:1.2.6"
         runtime "grails.crm:crm-i18n:1.2.2"
-        compile "grails.crm:crm-contact-lite:1.2.5"
         runtime "grails.crm:crm-ui-bootstrap:1.2.12"
         runtime "grails.crm:crm-content-ui:1.2.13"
     }
