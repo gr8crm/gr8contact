@@ -37,10 +37,10 @@ class Gr8ConfService {
 
     private void createSpeakers(int id) {
         def slurper = new JsonSlurper()
-        def json = slurper.parseText(new URL("http://cfp.gr8conf.org/api2/speakers/$id").text)
+        def json = new URL("http://cfp.gr8conf.org/api2/speakers/$id").withReader { r -> slurper.parse(r) }
         json.each { speaker ->
             def company
-            if(speaker.company) {
+            if (speaker.company) {
                 company = crmContactService.findByName(speaker.company) ?: crmContactService.createCompany(name: speaker.company, username: 'admin', true)
             }
             def person = crmContactService.createPerson(firstName: speaker.name, parent: company, description: speaker.bio, username: 'admin', true)
@@ -49,13 +49,13 @@ class Gr8ConfService {
 
     private void createTalks(int id) {
         def slurper = new JsonSlurper()
-        def json = slurper.parseText(new URL("http://cfp.gr8conf.org/api2/talks/$id").text)
+        def json = new URL("http://cfp.gr8conf.org/api2/talks/$id").withReader { r -> slurper.parse(r) }
         def timeFormat = new SimpleDateFormat("HH:mm:ss")
         def sessionType = crmTaskService.createTaskType(name: "Conference session", param: "session", true)
         json.each { talk ->
             def startTime = timeFormat.parse(talk.slot.start)
             def speaker = talk.speakers?.find { it }?.name
-            if(speaker) {
+            if (speaker) {
                 speaker = CrmContact.findByName(speaker)
             }
             def crmTask = crmTaskService.createTask(number: talk.id, startTime: startTime, duration: talk.duration,
@@ -65,7 +65,7 @@ class Gr8ConfService {
                 throw new IllegalStateException(crmTask.errors.allErrors.toString())
             } else {
                 for (tag in talk.tags) {
-                    for(t in tag.split(/\s+/)) {
+                    for (t in tag.split(/\s+/)) {
                         crmTask.setTagValue(t)
                     }
                 }
@@ -76,7 +76,7 @@ class Gr8ConfService {
 
     private void updateAgenda(int id) {
         def slurper = new JsonSlurper()
-        def days = slurper.parseText(new URL("http://cfp.gr8conf.org/api2/agenda/$id").text)
+        def days = new URL("http://cfp.gr8conf.org/api2/agenda/$id").withReader { r -> slurper.parse(r) }
         def timeFormat = new SimpleDateFormat("HH:mm:ss")
         days.each { agenda ->
             def cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Copenhagen"), new Locale("sv_SE"))
