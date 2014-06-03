@@ -34,8 +34,8 @@ class BootStrap {
 
         crmPluginService.registerView('crmContact', 'show', 'tabs',
                 [id: "tasks", index: 300, permission: "crmTask:show", label: "crmTask.index.label", template: '/crmTask/list', plugin: "crm-task-ui", model: {
+                    def result = crmTaskService.list([reference: crmContact], [sort: 'startTime', order: 'asc'])
                     def rid = crmCoreService.getReferenceIdentifier(crmContact)
-                    def result = crmTaskService.list([ref: rid], [sort: 'startTime', order: 'asc'])
                     return [bean: crmContact, reference: rid, result: result, totalCount: result.totalCount]
                 }]
         )
