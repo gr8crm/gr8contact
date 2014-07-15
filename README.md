@@ -16,3 +16,5 @@ The repository has five branches: master and m1-m4 that represents snapshots in 
 **m3**: The plugin *crm-task-ui* was installed and tasks/appointments with contacts can now be scheduled.
 
 **m4**: The plugin *cookie-layout* was installed and two *themes* were created to show that UI can change depending on sub-domain.
+
+![GR8 Contact Manager](src/docs/images/crm-contact-show.png)
