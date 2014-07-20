@@ -25,14 +25,9 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true
 
-        grailsPlugins()
-        grailsHome()
         grailsCentral()
-
-        mavenLocal()
         mavenCentral()
 
-        mavenRepo "http://labs.technipelago.se/repo/crm-releases-local/"
         mavenRepo "http://labs.technipelago.se/repo/plugins-releases-local/"
     }
 
