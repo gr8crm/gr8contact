@@ -66,8 +66,7 @@ crm.theme.logo.large = "/images/gr8conf-logo.png"
 crm.feature.crmContact.required = true
 crm.feature.crmContent.required = true
 
-selection.uri.parameter = "q"
-selection.uri.encoding = "base64"
+selection.gorm = true
 
 crm.tag.favorite = "favorite"
 crm.favorite.icon = "icon-star"

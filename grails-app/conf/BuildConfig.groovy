@@ -45,16 +45,15 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.1'
 
         runtime ":hibernate:$grailsVersion"
-        runtime ":resources:1.2.7"
-        runtime ":jquery:1.10.2"
-        runtime ":twitter-bootstrap:2.3.2"
-        runtime ":less-resources:1.3.3.2"
-        runtime ":database-migration:1.3.6"
+        compile ":resources:1.2.7"
+        compile ":jquery:1.10.2"
+        compile ":twitter-bootstrap:2.3.2"
+        compile ":less-resources:1.3.3.2"
+        compile ":database-migration:1.3.6"
 
-        compile "grails.crm:crm-contact-lite:1.2.5"
-        runtime "grails.crm:crm-security-shiro:1.2.6"
-        runtime "grails.crm:crm-i18n:1.2.2"
-        runtime "grails.crm:crm-ui-bootstrap:1.2.12"
-        runtime "grails.crm:crm-content-ui:1.2.13"
+        compile ":crm-contact-ui:2.0.0"
+        compile ":crm-security-shiro:2.0.0"
+        compile ":crm-i18n:2.0.0"
+        compile ":crm-ui-bootstrap:2.0.0"
     }
 }

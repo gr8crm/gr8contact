@@ -36,14 +36,19 @@ class BootStrap {
                 crmSecurityService.addPermissionToUser("permission.all")
 
                 // Create some demo data.
+                def type1 = crmContactService.createRelationType(name: "Organizer", param: "organizer", true)
+                def type2 = crmContactService.createRelationType(name: "Owner", param: "owner", true)
+
                 def gr8conf = crmContactService.createCompany(name: "GR8Conf", email: "info@gr8conf.org",
                         address: [address1: "IT-University", city: 'Copenhagen', country: "DK"], true)
-                crmContactService.createPerson(firstName: "Søren", lastName: "Berg Glasius",
-                        email: "sbglasius@gr8conf.org", parent: gr8conf, title: "Awesome Organizer", true)
+                def soren = crmContactService.createPerson(firstName: "Søren", lastName: "Berg Glasius",
+                        email: "sbglasius@gr8conf.org", title: "Awesome Organizer", true)
+                crmContactService.addRelation(soren, gr8conf, type1, true, 'Awesome organizer of GR8Conf Europe')
                 def technipelago = crmContactService.createCompany(name: "Technipelago AB", email: "info@technipelago.se",
-                        website: 'www.technipelago.se', address: [city: 'Djurhamn', country: "SE"], true)
-                crmContactService.createPerson(firstName: "Göran", lastName: "Ehrsson",
-                        email: "goran@technipelago.se", parent: technipelago, title: "Developer", true)
+                        url: 'www.technipelago.se', address: [city: 'Djurhamn', country: "SE"], true)
+                def goran = crmContactService.createPerson(firstName: "Göran", lastName: "Ehrsson",
+                        email: "goran@technipelago.se", title: "Developer", true)
+                crmContactService.addRelation(goran, technipelago, type2, true)
             }
         }
     }
