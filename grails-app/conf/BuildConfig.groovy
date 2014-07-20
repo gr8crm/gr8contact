@@ -25,14 +25,9 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true
 
-        grailsPlugins()
-        grailsHome()
         grailsCentral()
-
-        mavenLocal()
         mavenCentral()
 
-        mavenRepo "http://labs.technipelago.se/repo/crm-releases-local/"
         mavenRepo "http://labs.technipelago.se/repo/plugins-releases-local/"
     }
 
@@ -57,5 +52,6 @@ grails.project.dependency.resolution = {
         compile ":crm-security-shiro:2.0.0"
         compile ":crm-i18n:2.0.0"
         compile ":crm-ui-bootstrap:2.0.0"
+        compile ":cookie-layout:0.6"
     }
 }
