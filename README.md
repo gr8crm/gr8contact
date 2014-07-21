@@ -9,7 +9,7 @@ The repository has five branches: master and m1-m4 that represents snapshots in 
 
 **master**: A plain Grails application, created with *grails create-app*
 
-**m1**: The plugin *crm-contact-lite* was installed and contact (company/person) CRUD features are available.
+**m1**: The plugin *crm-contact-ui* was installed and contact (company/person) CRUD features are available.
 
 **m2**: The plugin *crm-content-ui* was installed and documents/files can now be attached to contacts.
 
