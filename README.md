@@ -1,6 +1,6 @@
 # GR8 Contact
 
-This is a demo application based on the Grails Web Application Framework.
+This is a demo application based on the Grails Web Application Framework and the [GR8 CRM plugin suite](http://gr8crm.github.io/).
 It was first presented at GR8Conf Europe 2014 by Göran Ehrsson @goeh.
 
 The application is a simple Contact Management application where you can manage your companies and contacts.
