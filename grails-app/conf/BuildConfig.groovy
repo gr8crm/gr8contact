@@ -45,12 +45,9 @@ grails.project.dependency.resolution = {
         compile ":database-migration:1.3.6"
 
         compile ":crm-contact-ui:2.0.0"
-        //compile ":crm-content-ui:2.0.0"
+        compile ":crm-content-ui:2.0.0"
         compile ":crm-security-shiro:2.0.0"
         compile ":crm-i18n:2.0.0"
         compile ":crm-ui-bootstrap:2.0.0"
     }
 }
-
-grails.plugin.location.'crm-content' = '/Users/goran/Development/crm2/crm-content'
-grails.plugin.location.'crm-content-ui' = '/Users/goran/Development/crm2/crm-content-ui'
