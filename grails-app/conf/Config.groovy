@@ -80,6 +80,7 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 
 crm.content.editor.css = [dir: 'less', file: 'application.less.css']
 crm.content.file.path = "./target/content-repository"
+crm.content.upload.multiple = true
 
 environments {
     development {
