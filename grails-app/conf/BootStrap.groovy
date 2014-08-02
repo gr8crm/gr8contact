@@ -26,7 +26,8 @@ class BootStrap {
                         model: {
                             def result = crmContentService.findResourcesByReference(crmContact)
                             return [bean: crmContact, list: result, totalCount: result.size(),
-                                    reference: crmCoreService.getReferenceIdentifier(crmContact), openAction: 'show']
+                                    reference: crmCoreService.getReferenceIdentifier(crmContact),
+                                    openAction: 'show', multiple: true]
                         }]
         )
 
