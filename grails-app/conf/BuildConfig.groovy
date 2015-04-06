@@ -25,7 +25,6 @@ grails.project.dependency.resolution = {
         inherits true
         grailsCentral()
         mavenLocal()
-        mavenRepo "http://repo.grails.org/grails/repo/"
         mavenCentral()
     }
 
