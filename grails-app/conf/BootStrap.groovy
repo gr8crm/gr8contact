@@ -8,7 +8,7 @@ class BootStrap {
     def crmPluginService
     def grailsNavigation
     def crmTaskService
-    def gr8ConfService
+    def greachConfService
 
     def init = { servletContext ->
 
@@ -78,6 +78,11 @@ class BootStrap {
                         email: "goran@technipelago.se", title: "Developer", true)
                 crmContactService.addRelation(goran, technipelago, type3, true)
                 crmContactService.addRelation(goran, greachconf, type2, false, "Cut your Grails application to pieces")
+
+                def speakers = new File('Greach2015_speakers_and_talks.csv')
+                if(speakers.exists()) {
+                    greachConfService.importTalks(speakers)
+                }
             }
         }
     }
