@@ -6,14 +6,18 @@ class BootStrap {
     def crmContactService
     def crmContentService
     def crmPluginService
-    def navigationService
+    def grailsNavigation
     def crmTaskService
     def gr8ConfService
 
     def init = { servletContext ->
 
-        navigationService.registerItem('main', [controller: 'crmCalendar', action: 'index', title: 'crmCalendar.index.label', order: 81])
-        navigationService.updated()
+        // Add some items to the main horizontal menu
+        grailsNavigation.registerNavigation({
+            main {
+                crmCalendar controller: 'crmCalendar', action: 'index', title: 'crmCalendar.index.label', order: 81
+            }
+        });
 
         // crmContact:show << documents
         crmPluginService.registerView('crmContact', 'show', 'tabs',

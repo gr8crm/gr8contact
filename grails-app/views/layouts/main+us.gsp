@@ -6,7 +6,7 @@
     <title><g:layoutTitle default="${meta(name: 'app.name')}"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <r:require modules="gr8conf-us"/>
+    <r:require module="gr8conf-us"/>
 
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
 
@@ -99,22 +99,22 @@
                 <div id="global-message" class="hide">
                     <g:if test="${flash.info || flash.message}">
                         <div class="alert-info">
-                            ${flash.info ?: flash.message}
+                            ${raw(flash.info ?: flash.message)}
                         </div>
                     </g:if>
                     <g:if test="${flash.success}">
                         <div class="alert-success">
-                            ${flash.success}
+                            ${raw(flash.success)}
                         </div>
                     </g:if>
                     <g:if test="${flash.warning}">
                         <div class="alert-warning">
-                            ${flash.warning}
+                            ${raw(flash.warning)}
                         </div>
                     </g:if>
                     <g:if test="${flash.error}">
                         <div class="alert-error">
-                            ${flash.error}
+                            ${raw(flash.error)}
                         </div>
                     </g:if>
                 </div>
@@ -136,24 +136,19 @@
 
                 <div class="nav-collapse">
 
-                    <nav:ifHasItems group="main">
-                        <ul class="nav" id="navigation_main">
-                            <crm:user>
-                            <li><g:link mapping="home"><i class="icon-home icon-white"></i></g:link></li>
-                            </crm:user>
-                            <nav:eachItem group="main" var="item">
-                                <crm:hasPermission permission="${item.controller + ':' + item.action + (item.id ? ':' + item.id : '')}">
-                                    <li class="${item.active || (item.controller == controllerName && item.action == actionName) ? 'active' : ''}">
-                                        <g:link controller="${item.controller ?: controllerName}" action="${item.action}"
-                                                id="${item.id}"
-                                                title="${message(code:item.controller + '.' + item.action + '.help')}">
-                                            ${message(code: item.title ?: (item.controller + '.' + item.action), default: message(code: item.controller, default: item.title ?: (item.controller + '.' + item.action)), args: [entityName])}
-                                        </g:link>
-                                    </li>
-                                </crm:hasPermission>
-                            </nav:eachItem>
-                        </ul>
-                    </nav:ifHasItems>
+                    <nav:menu scope="main" custom="true" class="nav" id="navigation_main">
+                        <g:set var="navController" value="${item.linkArgs.controller}"/>
+                        <g:set var="navAction" value="${item.linkArgs.action}"/>
+                        <g:set var="navData" value="${item.data}"/>
+                        <crm:hasPermission permission="${navController + ':' + navAction + (navData.id ? ':' + navData.id : '')}">
+                            <li class="${active || (navController == controllerName && navAction == actionName) ? 'active' : ''}">
+                                <g:link controller="${navController ?: controllerName}" action="${navAction}" id="${navData.id}"
+                                        title="${message(code:navController + '.' + navAction + '.help')}">
+                                    ${message(code: item.titleMessageCode ?: (navController + '.' + navAction), default: message(code: navController, default: item.titleMessageCode ?: (navController + '.' + navAction)), args: [entityName])}
+                                </g:link>
+                            </li>
+                        </crm:hasPermission>
+                    </nav:menu>
 
                     <crm:tenant><g:set var="tenantName" value="${name}"/></crm:tenant>
 
@@ -175,17 +170,19 @@
                                     </g:link>
                                     </li>
 
-                                    <nav:eachItem group="settings" var="item">
-                                        <crm:hasPermission permission="${item.controller + ':' + item.action + (item.id ? ':' + item.id : '')}">
-                                            <li class="${item.active || (item.controller == controllerName && item.action == actionName) ? 'active' : ''}">
-                                                <g:link controller="${item.controller ?: controllerName}" action="${item.action}"
-                                                        id="${item.id}"
-                                                        title="${message(code:item.controller + '.' + item.action + '.help')}">
-                                                    ${message(code: item.title ?: (item.controller + '.' + item.action), default: message(code: item.controller, default: item.title ?: (item.controller + '.' + item.action)), args: [entityName])}
+                                    <crm:eachNavigationItem scope="settings">
+                                        <g:set var="navController" value="${item.linkArgs.controller}"/>
+                                        <g:set var="navAction" value="${item.linkArgs.action}"/>
+                                        <g:set var="navData" value="${item.data}"/>
+                                        <crm:hasPermission permission="${navController + ':' + navAction + (navData.id ? ':' + navData.id : '')}">
+                                            <li class="${active || (navController == controllerName && navAction == actionName) ? 'active' : ''}">
+                                                <g:link controller="${navController ?: controllerName}" action="${navAction}" id="${navData.id}"
+                                                        title="${message(code:navController + '.' + navAction + '.help')}">
+                                                    ${message(code: item.titleMessageCode ?: (navController + '.' + navAction), default: message(code: navController, default: item.titleMessageCode ?: (navController + '.' + navAction)), args: [entityName])}
                                                 </g:link>
                                             </li>
                                         </crm:hasPermission>
-                                    </nav:eachItem>
+                                    </crm:eachNavigationItem>
 
                                     <li class="divider"></li>
 
@@ -220,50 +217,45 @@
                                                     action="show" id="${fav.id}">${fav.encodeAsHTML()}</g:link>
                                         </li>
                                     </usertag:eachTagged>
-                                    <nav:ifHasItems group="public">
-                                        <g:if test="${prevFav}">
-                                            <li class="divider"></li>
-                                        </g:if>
-                                        <nav:eachItem group="public" var="item">
-                                            <li>
-                                                <g:link controller="${item.controller ?: controllerName}"
-                                                        action="${item.action}"
-                                                        id="${item.id}"
-                                                        title="${message(code:item.controller + '.' + item.action + '.help')}">
-                                                    ${message(code: item.title ?: (item.controller + '.' + item.action), default: message(code: item.controller, default: item.title ?: (item.controller + '.' + item.action)), args: [entityName])}
+
+                                    <crm:eachNavigationItem scope="public">
+                                        <g:set var="navController" value="${item.linkArgs.controller}"/>
+                                        <g:set var="navAction" value="${item.linkArgs.action}"/>
+                                        <g:set var="navData" value="${item.data}"/>
+                                        <crm:hasPermission permission="${navController + ':' + navAction + (navData.id ? ':' + navData.id : '')}">
+                                            <li class="${active || (navController == controllerName && navAction == actionName) ? 'active' : ''}">
+                                                <g:link controller="${navController ?: controllerName}" action="${navAction}" id="${navData.id}"
+                                                        title="${message(code:navController + '.' + navAction + '.help')}">
+                                                    ${message(code: item.titleMessageCode ?: (navController + '.' + navAction), default: message(code: navController, default: item.titleMessageCode ?: (navController + '.' + navAction)), args: [entityName])}
                                                 </g:link>
                                             </li>
-                                        </nav:eachItem>
-                                    </nav:ifHasItems>
+                                        </crm:hasPermission>
+                                    </crm:eachNavigationItem>
                                 </ul>
                             </li>
                         </ul>
 
                         <crm:tenant>
-                            <nav:ifHasItems group="admin">
-                                <ul class="nav pull-right" id="navigation_admin">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <g:message code="default.admin.menu.label"/><b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-
-                                            <nav:eachItem group="admin" var="item">
-                                                <crm:hasPermission permission="${item.controller + ':' + item.action + (item.id ? ':' + item.id : '')}">
-                                                    <li class="${item.active || (item.controller == controllerName && item.action == actionName) ? 'active' : ''}">
-                                                        <g:link controller="${item.controller ?: controllerName}"
-                                                                action="${item.action}"
-                                                                id="${item.id}"
-                                                                title="${message(code:item.controller + '.' + item.action + '.help')}">
-                                                            ${message(code: item.title ?: (item.controller + '.' + item.action), default: message(code: item.controller, default: item.title ?: (item.controller + '.' + item.action)), args: [entityName])}
-                                                        </g:link>
-                                                    </li>
-                                                </crm:hasPermission>
-                                            </nav:eachItem>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav:ifHasItems>
+                            <ul class="nav pull-right" id="navigation_admin">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <g:message code="default.admin.menu.label"/><b class="caret"></b>
+                                    </a>
+                                    <nav:menu scope="admin" custom="true" class="dropdown-menu">
+                                        <g:set var="navController" value="${item.linkArgs.controller}"/>
+                                        <g:set var="navAction" value="${item.linkArgs.action}"/>
+                                        <g:set var="navData" value="${item.data}"/>
+                                        <crm:hasPermission permission="${navController + ':' + navAction + (navData.id ? ':' + navData.id : '')}">
+                                            <li class="${active || (navController == controllerName && navAction == actionName) ? 'active' : ''}">
+                                                <g:link controller="${navController ?: controllerName}" action="${navAction}" id="${navData.id}"
+                                                        title="${message(code:navController + '.' + navAction + '.help')}">
+                                                    ${message(code: item.titleMessageCode ?: (navController + '.' + navAction), default: message(code: navController, default: item.titleMessageCode ?: (navController + '.' + navAction)), args: [entityName])}
+                                                </g:link>
+                                            </li>
+                                        </crm:hasPermission>
+                                    </nav:menu>
+                                </li>
+                            </ul>
                         </crm:tenant>
 
                         <plugin:isAvailable name="crm-notification">
@@ -322,20 +314,19 @@
                             <button id="login-button" type="submit" class="btn btn-small" style="margin-top:0px;"><i class="icon-play"></i></button>
                         </g:form>
 
-                        <nav:ifHasItems group="public">
-                            <ul class="nav" id="navigation_public">
-                                <nav:eachItem group="public" var="item">
-                                    <li class="${item.active || (item.controller == controllerName && item.action == actionName) ? 'active' : ''}">
-                                        <g:link controller="${item.controller ?: controllerName}"
-                                                action="${item.action}"
-                                                id="${item.id}"
-                                                title="${message(code:item.controller + '.' + item.action + '.help')}">
-                                            ${message(code: item.title ?: (item.controller + '.' + item.action), default: message(code: item.controller, default: item.title ?: (item.controller + '.' + item.action)), args: [entityName])}
-                                        </g:link>
-                                    </li>
-                                </nav:eachItem>
-                            </ul>
-                        </nav:ifHasItems>
+                        <nav:menu scope="public" custom="true" class="nav" id="navigation_settings">
+                            <g:set var="navController" value="${item.linkArgs.controller}"/>
+                            <g:set var="navAction" value="${item.linkArgs.action}"/>
+                            <g:set var="navData" value="${item.data}"/>
+                            <crm:hasPermission permission="${navController + ':' + navAction + (navData.id ? ':' + navData.id : '')}">
+                                <li class="${active || (navController == controllerName && navAction == actionName) ? 'active' : ''}">
+                                    <g:link controller="${navController ?: controllerName}" action="${navAction}" id="${navData.id}"
+                                            title="${message(code:navController + '.' + navAction + '.help')}">
+                                        ${message(code: item.titleMessageCode ?: (navController + '.' + navAction), default: message(code: navController, default: item.titleMessageCode ?: (navController + '.' + navAction)), args: [entityName])}
+                                    </g:link>
+                                </li>
+                            </crm:hasPermission>
+                        </nav:menu>
 
                     </crm:noUser>
 
