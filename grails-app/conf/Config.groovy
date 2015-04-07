@@ -59,9 +59,9 @@ grails.exceptionresolver.params.exclude = ['password']
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
 grails.hibernate.cache.queries = false
 
-crm.theme.logo.small = "/images/gr8conf-logo.png"
-crm.theme.logo.medium = "/images/gr8conf-logo.png"
-crm.theme.logo.large = "/images/gr8conf-logo.png"
+crm.theme.logo.small = "/images/greachconf-logo.png"
+crm.theme.logo.medium = "/images/greachconf-logo.png"
+crm.theme.logo.large = "/images/greachconf-logo.png"
 
 crm.feature.crmContact.required = true
 

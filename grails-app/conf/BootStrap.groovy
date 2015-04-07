@@ -19,18 +19,28 @@ class BootStrap {
 
                 // Create some demo data.
                 def type1 = crmContactService.createRelationType(name: "Organizer", param: "organizer", true)
-                def type2 = crmContactService.createRelationType(name: "Owner", param: "owner", true)
+                def type2 = crmContactService.createRelationType(name: "Speaker", param: "speaker", true)
+                def type3 = crmContactService.createRelationType(name: "Owner", param: "owner", true)
 
                 def gr8conf = crmContactService.createCompany(name: "GR8Conf", email: "info@gr8conf.org",
                         address: [address1: "IT-University", city: 'Copenhagen', country: "DK"], true)
                 def soren = crmContactService.createPerson(firstName: "Søren", lastName: "Berg Glasius",
                         email: "sbglasius@gr8conf.org", title: "Awesome Organizer", true)
                 crmContactService.addRelation(soren, gr8conf, type1, true, 'Awesome organizer of GR8Conf Europe')
+
+                def greachconf = crmContactService.createCompany(name: "Greach", email: "crew@greachconf.com",
+                        address: [address1: "ESCUELA UNIVERSITARIA DE INFORMÁTICA", address2: 'C/ Arboleda', postalCode: 'S/N 28031', city: 'Madrid', country: "ES"],
+                        description: 'GREACH IS A 100% ENGLISH CONFERENCE IN A 100% SPANISH CITY\nGroovy, Grails, Griffon, Gpars, Gradle, Spock, Vert.x, Gaelyk and many more.', true)
+                def ivan = crmContactService.createPerson(firstName: "Iván", lastName: "López",
+                        email: "lopez.ivan@gmail.com", title: "Awesome Organizer", true)
+                crmContactService.addRelation(ivan, greachconf, type1, true, 'Awesome organizer of Greach')
+
                 def technipelago = crmContactService.createCompany(name: "Technipelago AB", email: "info@technipelago.se",
                         url: 'www.technipelago.se', address: [city: 'Djurhamn', country: "SE"], true)
                 def goran = crmContactService.createPerson(firstName: "Göran", lastName: "Ehrsson",
                         email: "goran@technipelago.se", title: "Developer", true)
-                crmContactService.addRelation(goran, technipelago, type2, true)
+                crmContactService.addRelation(goran, technipelago, type3, true)
+                crmContactService.addRelation(goran, greachconf, type2, false, "Cut your Grails application to pieces")
             }
         }
     }
